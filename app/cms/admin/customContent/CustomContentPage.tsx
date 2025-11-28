@@ -12,7 +12,7 @@ import { CustomContent } from "@/app/types/CustomContent";
 import { useDebounce } from "@/app/hooks/useDebounce";
 import ConfirmationModal from "@/app/components/shared/ConfirmationModal";
 import { useAuth } from "@/app/hooks/useAuth";
-import { FileText, Plus, Edit2, Power, PowerOff, Trash2, Search, Building2, Image, Download, FileImage } from "lucide-react";
+import { FileText, Plus, Edit2, Power, PowerOff, Trash2, Search, Building2, Download, FileImage, ImageIcon } from "lucide-react";
 
 const CustomContentPage: React.FC = () => {
     const router = useRouter();
@@ -162,7 +162,7 @@ const CustomContentPage: React.FC = () => {
             case "Text":
                 return <FileText className="w-4 h-4 text-blue-600" />;
             case "Image":
-                return <Image className="w-4 h-4 text-green-600" />;
+                return <ImageIcon className="w-4 h-4 text-green-600" />;
             case "Image And Text":
                 return <FileImage className="w-4 h-4 text-purple-600" />;
             case "Download":
@@ -269,7 +269,7 @@ const CustomContentPage: React.FC = () => {
                             <p className="text-orange-100 text-sm">Media Content</p>
                             <p className="text-2xl font-bold">{customContent.filter((item) => item.contentType !== "Text").length}</p>
                         </div>
-                        <Image className="h-8 w-8 text-orange-200" />
+                        <ImageIcon className="h-8 w-8 text-orange-200" />
                     </div>
                 </Card>
             </div>

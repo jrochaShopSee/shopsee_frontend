@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     experimental: {
         optimizePackageImports: ["lucide-react", "react-virtuoso"],
     },
-
     compress: true,
     images: {
         remotePatterns: [

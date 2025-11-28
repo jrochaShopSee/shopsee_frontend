@@ -143,7 +143,6 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
                 setValue("categories", productRes.categories || []);
                 setValue("variations", productRes.variations || undefined);
                 setValue("quizSettings", productRes.quizSettings || undefined);
-
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to load product data");
             } finally {
@@ -235,7 +234,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
 
             if (err.response?.data) {
                 // Try to extract message from backend response
-                if (typeof err.response.data === 'string') {
+                if (typeof err.response.data === "string") {
                     errorMessage = err.response.data;
                 } else if (err.response.data.message) {
                     errorMessage = err.response.data.message;
@@ -280,12 +279,13 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
     if (!formData || !productData) return null;
 
     const isShopifyProduct = productData.shopifyProductId !== null;
-    const isShopifyReadOnly = (fieldName: string) => {
+    const _isShopifyReadOnly = (fieldName: string) => {
         if (!isShopifyProduct) return false;
         // Only allow editing these fields for Shopify products
-        const editableFields = ['name', 'description', 'productIcon', 'productImage'];
+        const editableFields = ["name", "description", "productIcon", "productImage"];
         return !editableFields.includes(fieldName);
     };
+    void _isShopifyReadOnly; // Reserved for future use
 
     return (
         <div className="space-y-6">
@@ -308,10 +308,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
                         <AlertTriangle className="h-5 w-5 text-purple-600 mt-0.5" />
                         <div>
                             <h3 className="text-sm font-medium text-purple-900">Product Imported from Shopify</h3>
-                            <p className="text-sm text-purple-700 mt-1">
-                                This product is synced with Shopify. You can only edit the name, description, and images.
-                                All other fields (price, variations, inventory, etc.) are managed in your Shopify store.
-                            </p>
+                            <p className="text-sm text-purple-700 mt-1">This product is synced with Shopify. You can only edit the name, description, and images. All other fields (price, variations, inventory, etc.) are managed in your Shopify store.</p>
                         </div>
                     </div>
                 </Card>
@@ -323,18 +320,11 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
                     {/* LEFT COLUMN */}
                     <div className="space-y-8">
                         {/* 1. General Information - Always show */}
-                        <GeneralInformationSection
-                            register={register}
-                            errors={errors}
-                            formData={formData}
-                            watch={watch}
-                            setValue={setValue}
-                            isShopifyProduct={isShopifyProduct}
-                        />
+                        <GeneralInformationSection register={register} errors={errors} formData={formData} watch={watch} setValue={setValue} isShopifyProduct={isShopifyProduct} />
 
                         {/* 2. External Link - Show for External products only - Right after General Information */}
                         {productTypeId === PRODUCT_TYPES.EXTERNAL && (
-                            <div className={`bg-white rounded-lg border border-gray-200 overflow-hidden ${isShopifyProduct ? 'opacity-60' : ''}`}>
+                            <div className={`bg-white rounded-lg border border-gray-200 overflow-hidden ${isShopifyProduct ? "opacity-60" : ""}`}>
                                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 px-6 py-4">
                                     <div className="flex items-center gap-3">
                                         <div className="p-2 bg-blue-100 rounded-lg">
@@ -372,59 +362,52 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
 
                         {/* 3. Pricing - Show for all types except Quiz */}
                         {productTypeId !== PRODUCT_TYPES.QUIZ && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <PricingSection register={register} errors={errors} watch={watch} setValue={setValue} isShopifyProduct={isShopifyProduct} />
                             </div>
                         )}
 
                         {/* 4. Product Identification - Show for Physical and External */}
                         {(productTypeId === PRODUCT_TYPES.PHYSICAL || productTypeId === PRODUCT_TYPES.EXTERNAL) && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <ProductIdentificationSection register={register} errors={errors} />
                             </div>
                         )}
 
                         {/* 5. Physical Product Details - Show for Physical products only */}
                         {productTypeId === PRODUCT_TYPES.PHYSICAL && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <PhysicalProductDetailsSection register={register} errors={errors} isShopifyProduct={isShopifyProduct} />
                             </div>
                         )}
 
                         {/* 6. Product Variants - Show for Physical products only */}
                         {productTypeId === PRODUCT_TYPES.PHYSICAL && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <ProductVariantsSection register={register} errors={errors} watch={watch} setValue={setValue} />
                             </div>
                         )}
-
                     </div>
 
                     {/* RIGHT COLUMN */}
                     <div className="space-y-8">
                         {/* 1. Display Preferences - Show for Physical, External, Donation, Digital */}
-                        {(productTypeId === PRODUCT_TYPES.PHYSICAL || productTypeId === PRODUCT_TYPES.EXTERNAL || productTypeId === PRODUCT_TYPES.DONATION || productTypeId === PRODUCT_TYPES.DIGITAL) && (
-                            <DisplayPreferencesSection register={register} errors={errors} watch={watch} formData={formData} />
-                        )}
+                        {(productTypeId === PRODUCT_TYPES.PHYSICAL || productTypeId === PRODUCT_TYPES.EXTERNAL || productTypeId === PRODUCT_TYPES.DONATION || productTypeId === PRODUCT_TYPES.DIGITAL) && <DisplayPreferencesSection register={register} errors={errors} watch={watch} formData={formData} />}
 
                         {/* 2. Media and Images - Show for Physical, External, Donation, Digital */}
-                        {(productTypeId === PRODUCT_TYPES.PHYSICAL || productTypeId === PRODUCT_TYPES.EXTERNAL || productTypeId === PRODUCT_TYPES.DONATION || productTypeId === PRODUCT_TYPES.DIGITAL) && (
-                            <MediaUploadSection errors={errors} watch={watch} setValue={setValue} isShopifyProduct={isShopifyProduct} />
-                        )}
+                        {(productTypeId === PRODUCT_TYPES.PHYSICAL || productTypeId === PRODUCT_TYPES.EXTERNAL || productTypeId === PRODUCT_TYPES.DONATION || productTypeId === PRODUCT_TYPES.DIGITAL) && <MediaUploadSection errors={errors} watch={watch} setValue={setValue} isShopifyProduct={isShopifyProduct} />}
 
                         {/* 3. Quiz Settings - Show for Quiz products only - Above Categories */}
-                        {productTypeId === PRODUCT_TYPES.QUIZ && (
-                            <QuizSection register={register} errors={errors} watch={watch} setValue={setValue} />
-                        )}
+                        {productTypeId === PRODUCT_TYPES.QUIZ && <QuizSection register={register} errors={errors} watch={watch} setValue={setValue} />}
 
                         {/* 4. Categories - Show for all types */}
-                        <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                        <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                             <CategoriesSection watch={watch} setValue={setValue} />
                         </div>
 
                         {/* 5. Shipping - Show for Physical products only */}
                         {productTypeId === PRODUCT_TYPES.PHYSICAL && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                                     <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-gray-200 px-6 py-4">
                                         <div className="flex items-center gap-3">
@@ -471,7 +454,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
 
                         {/* 6. Inventory Management - Show for Physical products only */}
                         {productTypeId === PRODUCT_TYPES.PHYSICAL && (
-                            <div className={isShopifyProduct ? 'opacity-60 pointer-events-none' : ''}>
+                            <div className={isShopifyProduct ? "opacity-60 pointer-events-none" : ""}>
                                 <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                                     <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-gray-200 px-6 py-4">
                                         <div className="flex items-center gap-3">

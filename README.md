@@ -1,10 +1,10 @@
 # Shopsee Frontend
 
-A modern shoppable video commerce platform built with Next.js 15 that transforms any video into a seamless shopping experience. ShopSee enables brands, influencers, and creators to embed interactive product links directly in videos, revolutionizing how consumers engage with content.
+A modern shoppable video commerce platform built with Next.js 15 that transforms any video into a seamless shopping experience. Shopsee enables brands, influencers, and creators to embed interactive product links directly in videos.
 
 ## Overview
 
-ShopSee empowers video commerce by allowing viewers to discover and purchase products directly within videos. The platform includes:
+Shopsee empowers video commerce by allowing viewers to discover and purchase products directly within videos:
 
 - **Shoppable Video Player** - Embed purchasable products at specific timestamps
 - **AI-Driven Product Recognition** - Automatic product tagging and suggestions
@@ -19,7 +19,7 @@ ShopSee empowers video commerce by allowing viewers to discover and purchase pro
 |----------|------------|
 | Framework | Next.js 15.0.2 (App Router) |
 | Language | TypeScript 5 |
-| UI | React 19 RC, Tailwind CSS 3.4 |
+| UI | React 19, Tailwind CSS 3.4 |
 | State Management | Zustand 5.0 |
 | Forms | React Hook Form + Zod validation |
 | HTTP Client | Axios |
@@ -89,7 +89,7 @@ app/
 │   │   ├── analytics/      # Analytics dashboards
 │   │   ├── users/          # Admin user management
 │   │   ├── payouts/        # Payout processing
-│   │   └── ...
+│   │   └── settings/       # System settings
 │   ├── chat/               # Real-time messaging
 │   └── ecommerce/          # Orders & customers
 │
@@ -205,7 +205,7 @@ All API calls go through typed service classes:
 const videos = await videosApi.getVideos({ page: 1, pageSize: 20 });
 
 // Example: Create product
-const result = await adminProductsApi.createProduct(productData);
+const result = await adminProductsApi.create(productData);
 ```
 
 ## Integrations
@@ -226,26 +226,6 @@ const result = await adminProductsApi.createProduct(productData);
 - Digital signature integration for consent forms
 - Document preview and tracking
 
-## UI Components
-
-The project includes a custom UI component library:
-
-- `Button` - Primary, secondary, outline variants
-- `Card` - Elevated, bordered styles with hover effects
-- `Dialog` - Modal dialogs
-- `Input` / `Select` - Form controls
-- `DatePicker` - Date selection
-- `InfiniteScrollList` - Virtualized scrolling lists
-- `Container` / `SectionHeader` - Layout components
-
-## Performance Optimizations
-
-- Virtual scrolling for large lists (react-virtuoso)
-- Infinite scroll pagination
-- Image optimization via Next.js
-- Bundle optimization for lucide-react
-- HLS adaptive bitrate streaming for videos
-
 ## Scripts
 
 | Command | Description |
@@ -255,24 +235,13 @@ The project includes a custom UI component library:
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 
-## Configuration
+## Deployment
 
-### Next.js Config
+This project is configured for deployment on Vercel:
 
-- Custom output directory: `next/`
-- Compression enabled
-- Remote image patterns configured for Azure Blob Storage
-
-### TypeScript
-
-- Strict mode enabled
-- Path alias: `@/*` maps to project root
-
-### Tailwind
-
-Custom theme with:
-- Primary (purple), secondary (blue), accent (amber), success (green) color palettes
-- Custom spacing, shadows, and animations
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
 ## Browser Support
 
