@@ -46,9 +46,9 @@ const CategorySelectionModal: React.FC<CategorySelectionModalProps> = ({
     };
 
     const toggleCategory = (category: Category) => {
-        const isSelected = tempSelected.some((cat) => cat.categoryId === category.categoryId);
+        const isSelected = tempSelected.some((cat) => cat.id === category.id);
         if (isSelected) {
-            setTempSelected(tempSelected.filter((cat) => cat.categoryId !== category.categoryId));
+            setTempSelected(tempSelected.filter((cat) => cat.id !== category.id));
         } else {
             setTempSelected([...tempSelected, category]);
         }
@@ -60,8 +60,8 @@ const CategorySelectionModal: React.FC<CategorySelectionModalProps> = ({
     };
 
     const filteredCategories = categories.filter((cat) =>
-        cat.categoryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        cat.parentCategoryName?.toLowerCase().includes(searchTerm.toLowerCase())
+        cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cat.parentName?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (!isOpen) return null;
@@ -126,11 +126,11 @@ const CategorySelectionModal: React.FC<CategorySelectionModalProps> = ({
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             {filteredCategories.map((category) => {
                                 const isSelected = tempSelected.some(
-                                    (cat) => cat.categoryId === category.categoryId
+                                    (cat) => cat.id === category.id
                                 );
                                 return (
                                     <label
-                                        key={category.categoryId}
+                                        key={category.id}
                                         className={`flex items-start gap-3 p-4 border rounded-lg cursor-pointer transition-all ${
                                             isSelected
                                                 ? "border-indigo-500 bg-indigo-50"
@@ -147,11 +147,11 @@ const CategorySelectionModal: React.FC<CategorySelectionModalProps> = ({
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="text-sm font-medium text-gray-900 truncate">
-                                                {category.categoryName}
+                                                {category.name}
                                             </div>
-                                            {category.parentCategoryName && (
+                                            {category.parentName && (
                                                 <div className="text-xs text-gray-500 mt-0.5">
-                                                    {category.parentCategoryName}
+                                                    {category.parentName}
                                                 </div>
                                             )}
                                         </div>

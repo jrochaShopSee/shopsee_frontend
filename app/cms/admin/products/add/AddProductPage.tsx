@@ -171,7 +171,7 @@ const AddProductPage: React.FC = () => {
             // Prepare the request structure
             const createRequest = {
                 product: productData,
-                categories: data.categories?.map((cat) => cat.categoryId) || [], // Convert Category objects to array of IDs
+                categories: data.categories?.map((cat) => cat.id) || [], // Convert Category objects to array of IDs
                 variations: data.variations,
                 quizSettings: data.quizSettings,
                 donationPriceList: data.donationPriceList?.length > 0 ? data.donationPriceList : undefined,

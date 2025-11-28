@@ -22,7 +22,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({ watch, setValue }
     const removeCategory = (categoryId: number) => {
         setValue(
             "categories",
-            selectedCategories.filter((cat) => cat.categoryId !== categoryId)
+            selectedCategories.filter((cat) => cat.id !== categoryId)
         );
     };
 
@@ -65,20 +65,20 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({ watch, setValue }
                             <div className="flex flex-wrap gap-2">
                                 {selectedCategories.map((category) => (
                                     <div
-                                        key={category.categoryId}
+                                        key={category.id}
                                         className="flex items-center gap-2 px-3 py-2 bg-indigo-50 border border-indigo-200 rounded-lg text-sm"
                                     >
                                         <span className="font-medium text-indigo-900">
-                                            {category.categoryName}
+                                            {category.name}
                                         </span>
-                                        {category.parentCategoryName && (
+                                        {category.parentName && (
                                             <span className="text-indigo-600 text-xs">
-                                                ({category.parentCategoryName})
+                                                ({category.parentName})
                                             </span>
                                         )}
                                         <button
                                             type="button"
-                                            onClick={() => removeCategory(category.categoryId)}
+                                            onClick={() => removeCategory(category.id)}
                                             className="ml-1 p-1 hover:bg-indigo-100 rounded transition-colors"
                                         >
                                             <X className="h-3 w-3 text-indigo-600" />

@@ -117,9 +117,9 @@ function PricingContent() {
                                 </button>
                                 <button onClick={() => handleChangePricing(true)} className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${isAnnual ? "bg-primary text-white shadow-sm" : "text-gray-600 hover:text-gray-900"}`}>
                                     Annual
-                                    {plans.length > 0 && (plans[0].AnnualDiscountPercentage || (plans[0] as unknown as {annualDiscount?: number; annualDiscountPercentage?: number}).annualDiscount || (plans[0] as unknown as {annualDiscount?: number; annualDiscountPercentage?: number}).annualDiscountPercentage) && (
+                                    {plans.length > 0 && plans[0].annualDiscount > 0 && (
                                         <span className="ml-2 text-xs bg-success text-white px-2 py-0.5 rounded-full">
-                                            Save {plans[0].AnnualDiscountPercentage || (plans[0] as unknown as {annualDiscount?: number; annualDiscountPercentage?: number}).annualDiscount || (plans[0] as unknown as {annualDiscount?: number; annualDiscountPercentage?: number}).annualDiscountPercentage}%
+                                            Save {plans[0].annualDiscount}%
                                         </span>
                                     )}
                                 </button>

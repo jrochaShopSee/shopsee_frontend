@@ -1,5 +1,5 @@
 // components/ui/Select.tsx - Enhanced to handle both patterns
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 
 interface SelectProps {
     value: string;
@@ -33,6 +33,7 @@ export const Select: React.FC<SelectProps> = ({ value, onValueChange, disabled =
     const [isOpen, setIsOpen] = useState(false);
     const [selectedLabel, setSelectedLabel] = useState<string>("");
     const selectRef = useRef<HTMLDivElement>(null);
+    const listboxId = useId();
 
     // Enhanced extraction to handle both <option> and SelectItem patterns
     const { extractedPlaceholder, items } = React.useMemo(() => {
@@ -42,14 +43,14 @@ export const Select: React.FC<SelectProps> = ({ value, onValueChange, disabled =
         // Function to extract items from different patterns
         const extractItems = (children: React.ReactNode) => {
             React.Children.forEach(children, (child) => {
-                if (React.isValidElement(child)) {
+                if (React.isValidElement<{ children?: React.ReactNode }>(child)) {
                     // Handle HTML <option> elements
                     if (child.type === "option") {
                         const optionProps = child.props as React.OptionHTMLAttributes<HTMLOptionElement>;
                         if (optionProps.value && !optionProps.disabled) {
                             extractedItems.push({
                                 value: String(optionProps.value),
-                                label: typeof child.props.children === "string" ? child.props.children : String(child.props.children || optionProps.value),
+                                label: typeof optionProps.children === "string" ? optionProps.children : String(optionProps.children || optionProps.value),
                             });
                         }
                     }
@@ -187,6 +188,7 @@ export const Select: React.FC<SelectProps> = ({ value, onValueChange, disabled =
                 type="button"
                 role="combobox"
                 aria-expanded={isOpen}
+                aria-controls={listboxId}
                 aria-haspopup="listbox"
                 className={`flex h-10 w-full items-center justify-between rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${disabled ? "cursor-not-allowed opacity-50 bg-gray-50" : "cursor-pointer hover:bg-gray-50 focus:bg-gray-50"}`}
                 onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -201,7 +203,7 @@ export const Select: React.FC<SelectProps> = ({ value, onValueChange, disabled =
             </button>
 
             {isOpen && !disabled && (
-                <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" role="listbox" aria-label="Options">
+                <div id={listboxId} className="absolute top-full left-0 right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" role="listbox" aria-label="Options">
                     {items.length > 0 ? (
                         <div className="py-1">
                             {items.map((item, index) => (

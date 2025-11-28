@@ -100,7 +100,7 @@ const LiveStreamingPage: React.FC = () => {
                             kind,
                             rtpParameters,
                         }) as { producerId: string };
-                        callback({ producerId });
+                        callback({ id: producerId });
                     } catch (err) {
                         errback(err as Error);
                     }
@@ -214,8 +214,9 @@ const LiveStreamingPage: React.FC = () => {
     const request = (type: string, data = {}) => {
         return new Promise((resolve, reject) => {
             socket.emit(type, data, (response: unknown) => {
-                if (response && response.error) {
-                    reject(new Error(response.error));
+                const resp = response as { error?: string };
+                if (resp && resp.error) {
+                    reject(new Error(resp.error));
                 } else {
                     resolve(response);
                 }

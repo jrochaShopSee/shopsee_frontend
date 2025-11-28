@@ -33,6 +33,7 @@
         "leaflet.heat": "^0.2.0",
         "lodash": "^4.17.21",
         "lucide-react": "^0.475.0",
+        "mediasoup-client": "^3.18.1",
         "next": "15.0.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
@@ -44,6 +45,7 @@
         "react-toastify": "^11.0.5",
         "react-virtuoso": "^4.14.0",
         "recharts": "^3.1.0",
+        "socket.io-client": "^4.8.1",
         "zod": "^3.23.8",
         "zustand": "^5.0.1"
     },

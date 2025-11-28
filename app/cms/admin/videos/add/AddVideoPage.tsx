@@ -175,7 +175,12 @@ export default function AddVideoPage() {
 
         setIsSubmitting(true);
         try {
-            const result = await videosApi.createVideo(data);
+            // Ensure companyId is always a number
+            const requestData = {
+                ...data,
+                companyId: data.companyId || user?.companies?.[0]?.id || 0,
+            };
+            const result = await videosApi.createVideo(requestData);
             toast.success(result.message || "Video created successfully");
 
             // Stop showing the main form loading spinner

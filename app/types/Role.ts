@@ -463,8 +463,8 @@ export interface VideoDetail {
 export interface CreateVideoRequest {
     companyId: number;
     title: string;
-    displayName: string;
-    name: string;
+    displayName?: string | null;
+    name?: string | null;
     description?: string;
     isActive?: boolean;
     isPrivate?: boolean;
@@ -491,13 +491,13 @@ export interface CreateVideoRequest {
 export interface UpdateVideoRequest {
     id: number;
     title: string;
-    displayName: string;
-    name: string;
+    displayName?: string | null;
+    name?: string | null;
     description?: string;
     isActive: boolean;
     isPrivate: boolean;
-    isFeatured: boolean;
-    displayBranding: boolean;
+    isFeatured?: boolean;
+    displayBranding?: boolean;
     hasConsent: boolean;
     canFastForward: boolean;
     consentTemplateId?: string;

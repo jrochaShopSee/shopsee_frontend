@@ -140,7 +140,17 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
                 }
 
                 // Load categories, variations, and quiz settings if available
-                setValue("categories", productRes.categories || []);
+                // Transform ProductCategory (categoryId, categoryName) to Category (id, name) format
+                const transformedCategories = (productRes.categories || []).map(cat => ({
+                    id: cat.categoryId,
+                    name: cat.categoryName,
+                    description: cat.description,
+                    videoCount: cat.videoCount,
+                    isActive: cat.isActive ?? true,
+                    parentId: cat.parentCategoryId ?? undefined, // Convert null to undefined
+                    parentName: cat.parentCategoryName,
+                }));
+                setValue("categories", transformedCategories);
                 setValue("variations", productRes.variations || undefined);
                 setValue("quizSettings", productRes.quizSettings || undefined);
             } catch (err) {
@@ -216,7 +226,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ productId }) => {
             // Prepare the request structure
             const updateRequest = {
                 product: productData,
-                categories: data.categories?.map((cat) => cat.categoryId) || [], // Convert Category objects to array of IDs
+                categories: data.categories?.map((cat) => cat.id) || [], // Convert Category objects to array of IDs
                 variations: data.variations,
                 quizSettings: data.quizSettings,
                 donationPriceList: data.donationPriceList?.length > 0 ? data.donationPriceList : undefined,

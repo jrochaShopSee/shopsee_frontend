@@ -67,7 +67,7 @@ export const DropdownMenuContent: React.FC<DropdownMenuContentProps & { onClose?
     return (
         <div className={`absolute top-full mt-1 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md ${alignmentClasses[align]}`}>
             {React.Children.map(children, (child) => {
-                if (React.isValidElement(child) && child.type === DropdownMenuItem) {
+                if (React.isValidElement<{ onClick?: () => void }>(child) && child.type === DropdownMenuItem) {
                     return React.cloneElement(child, {
                         onClickInternal: () => {
                             if (child.props.onClick) {

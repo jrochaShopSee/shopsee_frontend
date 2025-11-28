@@ -15,6 +15,69 @@ export interface Product {
     shopifyShopId?: string | null;
 }
 
+// Category type for product categories (matches backend CategoryViewModel)
+export interface ProductCategory {
+    categoryId: number;
+    categoryName: string;
+    description?: string;
+    videoCount?: number;
+    isActive?: boolean;
+    userId?: number | null;
+    dateAdded?: string;
+    dateModified?: string;
+    parentCategoryId?: number | null;
+    parentCategoryName?: string;
+}
+
+// Product Variation types (matches backend ProductVariation)
+export interface ProductVariationOption {
+    id: string;
+    name: string;
+    values: string[];
+}
+
+export interface ProductVariationCombination {
+    id?: string;
+    shopifyVariantId?: number | null;
+    options: Record<string, string>;
+    price?: number | null;
+    salePrice?: number | null;
+    currentInventory?: number | null;
+    sku?: string | null;
+    barcode?: string | null;
+    length?: number | null;
+    width?: number | null;
+    height?: number | null;
+    weight?: number | null;
+}
+
+export interface ProductVariation {
+    options: ProductVariationOption[];
+    combinations: ProductVariationCombination[];
+}
+
+// Quiz Answer type for UI display
+export interface QuizAnswer {
+    id?: number;
+    text: string;
+    isCorrect: boolean;
+}
+
+// Quiz Settings type - supports both backend format and UI format
+export interface QuizSettings {
+    // Backend format (QuizSettingsViewModel)
+    productQuizOptionId?: number;
+    firstAnswer?: string;
+    secondAnswer?: string;
+    thirdAnswer?: string | null;
+    fourthAnswer?: string | null;
+    correctAnswers?: string[];
+    mustAnswer?: boolean;
+    multiple?: boolean;
+    // UI format (transformed for display)
+    answers?: QuizAnswer[];
+}
+
 export interface ProductDetails {
     id: number;
     companyId: number;
@@ -57,10 +120,9 @@ export interface ProductDetails {
     shippingTypeId?: number | null;
     customPrices: boolean;
     donationPriceList: DonationPrice[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    variations?: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    quizSettings?: any;
+    categories?: ProductCategory[];
+    variations?: ProductVariation | null;
+    quizSettings?: QuizSettings | null;
     createdDate: string;
     modifiedDate: string;
 }

@@ -182,7 +182,7 @@ const EditUserPage: React.FC<EditUserPageProps> = ({ id }) => {
         }
 
         // Password validation (only if password field has content)
-        if (formData.password.trim()) {
+        if (formData.password?.trim()) {
             if (formData.password.length < 6 || formData.password.length > 100) {
                 newErrors.password = "Password must be between 6 and 100 characters";
             }
@@ -202,7 +202,7 @@ const EditUserPage: React.FC<EditUserPageProps> = ({ id }) => {
         if (hasResponseInput && !hasQuestionInput) {
             newErrors.question = "Security question is required when response is provided";
         }
-        if (hasResponseInput && (formData.response.length < 3 || formData.response.length > 40)) {
+        if (hasResponseInput && formData.response && (formData.response.length < 3 || formData.response.length > 40)) {
             newErrors.response = "Response must be between 3 and 40 characters";
         }
 
@@ -260,13 +260,13 @@ const EditUserPage: React.FC<EditUserPageProps> = ({ id }) => {
             };
 
             // Only add password fields if password is being changed
-            if (formData.password.trim()) {
+            if (formData.password?.trim()) {
                 payload.password = formData.password;
                 payload.confirmPassword = formData.confirmPassword;
             }
 
             // Only add security question fields if they are being changed
-            if (formData.question.trim() && formData.response.trim()) {
+            if (formData.question?.trim() && formData.response?.trim()) {
                 payload.question = formData.question;
                 payload.response = formData.response;
             }

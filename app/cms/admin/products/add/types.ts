@@ -1,55 +1,23 @@
-// Category interface - matches API response from backend
-export interface Category {
-    categoryId: number;
-    categoryName: string;
-    description?: string;
-    videoCount?: number;
-    isActive: boolean;
-    userId?: number | null;
-    dateAdded?: string;
-    dateModified?: string;
-    parentCategoryId?: number;
-    parentCategoryName?: string;
-    subCategoriesQuantity?: number;
-}
+// Re-export Category from categoriesApi - this is what the UI components use
+// The categoriesApi Category uses: id, name, parentId, parentName (matching backend JsonProperty serialization)
+import { Category } from "@/app/services/categoriesApi";
+export type { Category };
 
-// Quiz interfaces
-export interface QuizAnswer {
-    id?: number;
-    text: string;
-    isCorrect: boolean;
-}
-
-export interface QuizSettings {
-    mustAnswer: boolean;
-    answers: QuizAnswer[];
-}
-
-// Product variation interfaces
-export interface VariationOption {
-    id?: number;
-    name: string; // e.g., "Size", "Color"
-    values: string[]; // e.g., ["Small", "Medium", "Large"]
-}
-
-export interface VariationCombination {
-    id?: number;
-    options: { [key: string]: string }; // e.g., { "Size": "Small", "Color": "Red" }
-    price?: number;
-    salePrice?: number;
-    sku?: string;
-    barcode?: string;
-    currentInventory?: number;
-    length?: number;
-    width?: number;
-    height?: number;
-    weight?: number;
-}
-
-export interface ProductVariation {
-    options: VariationOption[];
-    combinations: VariationCombination[];
-}
+// Re-export ProductVariation types from Product.ts - matches backend format
+import {
+    ProductVariation,
+    ProductVariationOption,
+    ProductVariationCombination,
+    QuizSettings,
+    QuizAnswer
+} from "@/app/types/Product";
+export type {
+    ProductVariation,
+    ProductVariationOption as VariationOption,
+    ProductVariationCombination as VariationCombination,
+    QuizSettings,
+    QuizAnswer
+};
 
 // Donation price interface - matches the expected API format
 export interface DonationPrice {

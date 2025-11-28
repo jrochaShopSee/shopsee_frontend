@@ -20,7 +20,7 @@ const ProductVariantsSection: React.FC<ProductVariantsSectionProps> = ({
     const variations = watch("variations");
     const [newOptionName, setNewOptionName] = useState("");
     const [newOptionValues, setNewOptionValues] = useState("");
-    const [editingOptionId, setEditingOptionId] = useState<number | null>(null);
+    const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
     const [editOptionName, setEditOptionName] = useState("");
     const [editOptionValues, setEditOptionValues] = useState("");
 
@@ -31,7 +31,7 @@ const ProductVariantsSection: React.FC<ProductVariantsSectionProps> = ({
         if (values.length === 0) return;
 
         const newOption: VariationOption = {
-            id: Date.now(),
+            id: String(Date.now()),
             name: newOptionName.trim(),
             values: values
         };
@@ -52,7 +52,7 @@ const ProductVariantsSection: React.FC<ProductVariantsSectionProps> = ({
         setNewOptionValues("");
     };
 
-    const removeVariationOption = (optionId: number) => {
+    const removeVariationOption = (optionId: string) => {
         if (!variations) return;
 
         const updatedOptions = variations.options.filter(opt => opt.id !== optionId);
@@ -113,7 +113,7 @@ const ProductVariantsSection: React.FC<ProductVariantsSectionProps> = ({
         ) => {
             if (remainingOptions.length === 0) {
                 combinations.push({
-                    id: Date.now() + Math.random(),
+                    id: String(Date.now()) + String(Math.random()).slice(2),
                     options: { ...currentCombination },
                     price: undefined,
                     salePrice: undefined,
@@ -142,7 +142,7 @@ const ProductVariantsSection: React.FC<ProductVariantsSectionProps> = ({
     };
 
     const updateCombination = (
-        combinationId: number,
+        combinationId: string,
         field: keyof VariationCombination,
         value: string | number | undefined
     ) => {
