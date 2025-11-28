@@ -1,0 +1,78 @@
+/* Container for the stepper and the background line */
+.stepper-container {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Background line across the entire stepper */
+.background-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #ccc;
+  z-index: 1; /* Keep it behind the circles and connecting lines */
+}
+
+/* Stepper containing the steps */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2; /* Ensure it appears above the background line */
+}
+
+/* Individual step with circle and connecting line */
+.step {
+  display: flex;
+  align-items: center;
+}
+
+/* Circle styling */
+.circle {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  transition: all 0.3s ease;
+  z-index: 3; /* Ensure circles appear above lines */
+}
+
+.circle.active {
+  border-color: orange;
+  background-color: orange;
+  color: white;
+}
+
+/* Connecting line between circles */
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #ccc;
+  margin: 0 -20px; /* Adjust spacing to overlap circles slightly */
+  transition: background-color 0.3s ease;
+}
+
+.line.active {
+  background-color: orange;
+}
+
+
+  .modal-content {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .modal-content.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
