@@ -39,7 +39,7 @@ const AddSubscriptionProductPage: React.FC = () => {
                 if (types.length > 0) {
                     setFormData(prev => ({ ...prev, subscriptionTypeId: types[0].id }));
                 }
-            } catch (error) {
+            } catch {
                 toast.error("Failed to load subscription types");
             }
         };

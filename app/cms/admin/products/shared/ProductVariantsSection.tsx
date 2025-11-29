@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { UseFormRegister, FieldErrors, UseFormWatch, UseFormSetValue } from "react-hook-form";
-import { Package2, Plus, Trash2, DollarSign, Edit2 } from "lucide-react";
+import { Package2, Plus, Trash2, DollarSign } from "lucide-react";
 import { Button } from "@/app/components/ui/Button";
 import { AddProductFormData, VariationOption, VariationCombination } from "../add/types";
 

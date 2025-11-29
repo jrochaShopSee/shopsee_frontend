@@ -43,7 +43,7 @@ const EditSubscriptionProductPage: React.FC<EditSubscriptionProductPageProps> = 
             try {
                 const types = await subscriptionProductApi.getSubscriptionTypes();
                 setSubscriptionTypes(types);
-            } catch (error) {
+            } catch {
                 toast.error("Failed to load subscription types");
             }
         };

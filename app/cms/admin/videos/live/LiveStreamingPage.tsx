@@ -1,21 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { LoadingSpinner } from "@/app/components/shared/LoadingSpinner";
 import {
     ArrowLeft,
-    Copy,
     Video,
-    Check,
-    Clock,
     Calendar,
     Play,
-    Fingerprint,
 } from "lucide-react";
-import { toast } from "react-toastify";
-import Script from "next/script";
-import { rootUrl } from "@/app/utils/host";
 import * as mediasoupClient from "mediasoup-client";
 import { io } from "socket.io-client";
 

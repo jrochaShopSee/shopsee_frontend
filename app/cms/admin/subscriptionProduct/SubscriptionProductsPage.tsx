@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card } from "@/app/components/ui/Card";
 import { Button } from "@/app/components/ui/Button";
 import { LoadingSpinner } from "@/app/components/shared/LoadingSpinner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/app/components/ui/Dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/app/components/ui/Dialog";
 import { toast } from "react-toastify";
 import { subscriptionProductApi } from "@/app/services/subscriptionProductApi";
 import { SubscriptionProduct } from "@/app/types/SubscriptionProduct";
