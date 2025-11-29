@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    distDir: "next",
     reactStrictMode: false,
     experimental: {
         optimizePackageImports: ["lucide-react", "react-virtuoso"],
